@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <meta name="theme-color" content="#1C1F26">
-<title>My Training — CoachStack</title>
+<title>My Training — CoachPilot</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--ink:#1C1F26;--ink2:#3D4149;--ink3:#767B87;--bg:#F7F5F1;--card:#FFFFFF;--line:#E4E1DA;--accent:#FF6B35;--accent-dk:#D9531F;--green:#2E7D5B;--green-lt:#E5F2EC;}
@@ -34,7 +34,7 @@ body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-se
 </head>
 <body>
 <div class="topbar">
-  <div class="wordmark">Coach<span>Stack</span></div>
+  <div class="wordmark">Coach<span>Pilot</span></div>
   <div class="trainer-name" id="trainerName"></div>
 </div>
 <div class="wrap">
@@ -44,11 +44,11 @@ body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-se
   </div>
 </div>
 <script>
-const WORKER = COACHSTACK_WORKER_URL;
+const WORKER = COACHPILOT_WORKER_URL;
 let SESSION = null, CURRENT_BUNDLE = null, ACTIVE_ROUTINE_IDX = null;
 
 (function(){
-  const saved = localStorage.getItem('coachstack_client_session');
+  const saved = localStorage.getItem('coachpilot_client_session');
   if (!saved) { location.href = 'client-login.html'; return; }
   try { SESSION = JSON.parse(saved); } catch(e) { location.href = 'client-login.html'; return; }
   loadMe();

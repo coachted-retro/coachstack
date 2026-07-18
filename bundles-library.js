@@ -1,6 +1,6 @@
 // bundles-library.js
 // SINGLE SOURCE OF TRUTH for all pre-built workout programs / bundles in
-// CoachStack -- used by client-app.html (client-facing) and
+// CoachPilot -- used by client-app.html (client-facing) and
 // trainer-dashboard.html / client-detail.html (trainer's program picker
 // when assigning a client). Imported from the Ironclad/pt-tools project
 // as a starting catalog (July 2026) -- the two are separate products now,

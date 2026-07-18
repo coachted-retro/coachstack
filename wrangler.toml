@@ -1,4 +1,4 @@
-name = "coachstack"
+name = "coachpilot"
 main = "worker.js"
 compatibility_date = "2026-07-01"
 account_id = "e3507901699c196c82b78ea540a58612"

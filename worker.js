@@ -1,4 +1,4 @@
-// CoachStack Worker -- Phase 1
+// CoachPilot Worker -- Phase 1
 // Lean coach/client platform: trainer account, client roster, assign a
 // program from the shared bundle catalog, client workout logging.
 // Deliberately has none of Ironclad/pt-tools' gym-management weight (no
@@ -37,7 +37,7 @@ export default {
     };
     if (request.method === 'OPTIONS') return new Response(null, { headers: cors });
     const url = new URL(request.url);
-    const SECRET = env.JWT_SECRET || 'coachstack-dev-secret';
+    const SECRET = env.JWT_SECRET || 'coachpilot-dev-secret';
 
     try {
       if (url.pathname === '/health') return ok({ db: !!env.DB }, cors);

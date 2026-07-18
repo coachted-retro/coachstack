@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <meta name="theme-color" content="#1C1F26">
-<title>Create Your Account — CoachStack</title>
+<title>Create Your Account — CoachPilot</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--ink:#1C1F26;--ink2:#3D4149;--ink3:#767B87;--bg:#F7F5F1;--card:#FFFFFF;--line:#E4E1DA;--accent:#FF6B35;--accent-dk:#D9531F;--green:#2E7D5B;--green-lt:#E5F2EC;}
@@ -34,7 +34,7 @@ input:focus{outline:none;border-color:var(--accent)}
 </head>
 <body>
 <div class="wrap">
-  <div class="wordmark">Coach<span>Stack</span></div>
+  <div class="wordmark">Coach<span>Pilot</span></div>
   <div class="tagline">One flat rate. Every client. No penalty for growing.</div>
   <div class="card">
     <h1>Create your account</h1>
@@ -66,7 +66,7 @@ input:focus{outline:none;border-color:var(--accent)}
   <div class="footer">Already have an account? <a href="trainer-login.html">Sign in</a></div>
 </div>
 <script>
-const WORKER = COACHSTACK_WORKER_URL;
+const WORKER = COACHPILOT_WORKER_URL;
 async function doSignup(){
   const business_name = document.getElementById('fBusiness').value.trim();
   const full_name = document.getElementById('fName').value.trim();
@@ -83,7 +83,7 @@ async function doSignup(){
     const r = await fetch(WORKER + '/trainer/signup', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({business_name, full_name, email, phone: phone || null, password}) });
     const d = await r.json();
     if (!d.ok) { errEl.textContent = d.error || 'Could not create account.'; errEl.style.display = 'block'; btn.disabled=false; btn.textContent='Create Account'; return; }
-    localStorage.setItem('coachstack_trainer_session', JSON.stringify({ token: d.token, trainer_id: d.trainer_id, business_name: d.business_name, full_name }));
+    localStorage.setItem('coachpilot_trainer_session', JSON.stringify({ token: d.token, trainer_id: d.trainer_id, business_name: d.business_name, full_name }));
     location.href = 'trainer-dashboard.html';
   } catch(e) {
     errEl.textContent = 'Connection error, try again.'; errEl.style.display = 'block';

@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <meta name="theme-color" content="#1C1F26">
-<title>Client Detail — CoachStack</title>
+<title>Client Detail — CoachPilot</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--ink:#1C1F26;--ink2:#3D4149;--ink3:#767B87;--bg:#F7F5F1;--card:#FFFFFF;--line:#E4E1DA;--accent:#FF6B35;--accent-dk:#D9531F;--green:#2E7D5B;--green-lt:#E5F2EC;}
@@ -41,7 +41,7 @@ label{font-size:11px;font-weight:600;letter-spacing:.3px;text-transform:uppercas
 <body>
 <div class="topbar">
   <button class="back-btn" onclick="location.href='trainer-dashboard.html'">←</button>
-  <div class="wordmark">Coach<span>Stack</span></div>
+  <div class="wordmark">Coach<span>Pilot</span></div>
 </div>
 <div class="wrap">
   <div class="card">
@@ -96,13 +96,13 @@ label{font-size:11px;font-weight:600;letter-spacing:.3px;text-transform:uppercas
 </div>
 
 <script>
-const WORKER = COACHSTACK_WORKER_URL;
+const WORKER = COACHPILOT_WORKER_URL;
 let SESSION = null;
 const params = new URLSearchParams(location.search);
 const clientId = params.get('id');
 
 (function(){
-  const saved = localStorage.getItem('coachstack_trainer_session');
+  const saved = localStorage.getItem('coachpilot_trainer_session');
   if (!saved) { location.href = 'trainer-login.html'; return; }
   try { SESSION = JSON.parse(saved); } catch(e) { location.href = 'trainer-login.html'; return; }
   if (!clientId) { location.href = 'trainer-dashboard.html'; return; }

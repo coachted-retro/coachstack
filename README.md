@@ -1,4 +1,4 @@
-# CoachStack
+# CoachPilot
 
 A lean, flat-rate training platform for independent personal trainers and
 coaches — client roster, program assignment, and workout logging, without
@@ -17,7 +17,7 @@ flat rate, unlimited clients.
 - Client login, view assigned program, log workouts
 
 ## Stack
-- Cloudflare Worker (`worker.js`) + D1 (`coachstack-db`)
+- Cloudflare Worker (`worker.js`) + D1 (`coachpilot-db`)
 - Static frontend on GitHub Pages, deployed automatically on push to `main`
 - Worker auto-deploys on push via `.github/workflows/deploy-worker.yml`
   (needs `CLOUDFLARE_API_TOKEN` set as a repo secret)

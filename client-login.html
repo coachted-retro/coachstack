@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <meta name="theme-color" content="#1C1F26">
-<title>Sign In — CoachStack</title>
+<title>Sign In — CoachPilot</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--ink:#1C1F26;--ink2:#3D4149;--ink3:#767B87;--bg:#F7F5F1;--card:#FFFFFF;--line:#E4E1DA;--accent:#FF6B35;--accent-dk:#D9531F;}
@@ -28,7 +28,7 @@ input:focus{outline:none;border-color:var(--accent)}
 </head>
 <body>
 <div class="wrap">
-  <div class="wordmark">Coach<span>Stack</span></div>
+  <div class="wordmark">Coach<span>Pilot</span></div>
   <div class="card">
     <h1 id="formTitle">Sign in</h1>
     <div id="loginFields">
@@ -54,11 +54,11 @@ input:focus{outline:none;border-color:var(--accent)}
   </div>
 </div>
 <script>
-const WORKER = COACHSTACK_WORKER_URL;
+const WORKER = COACHPILOT_WORKER_URL;
 let PENDING_EMAIL = '', PENDING_PASSWORD = '';
 (function(){
-  const saved = localStorage.getItem('coachstack_client_session');
-  if (saved) { try { JSON.parse(saved); location.href = 'client-app.html'; } catch(e) { localStorage.removeItem('coachstack_client_session'); } }
+  const saved = localStorage.getItem('coachpilot_client_session');
+  if (saved) { try { JSON.parse(saved); location.href = 'client-app.html'; } catch(e) { localStorage.removeItem('coachpilot_client_session'); } }
 })();
 async function doLogin(){
   const email = document.getElementById('cEmail').value.trim();
@@ -79,7 +79,7 @@ async function doLogin(){
       document.getElementById('changeBox').style.display = 'block';
       return;
     }
-    localStorage.setItem('coachstack_client_session', JSON.stringify({ token: d.token, client_id: d.client_id, email }));
+    localStorage.setItem('coachpilot_client_session', JSON.stringify({ token: d.token, client_id: d.client_id, email }));
     location.href = 'client-app.html';
   } catch(e) {
     errEl.textContent = 'Connection error, try again.'; errEl.style.display = 'block';
@@ -98,7 +98,7 @@ async function doChangePassword(){
     const loginR = await fetch(WORKER + '/client/login', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ email: PENDING_EMAIL, password: newPassword }) });
     const loginD = await loginR.json();
     if (loginD.ok) {
-      localStorage.setItem('coachstack_client_session', JSON.stringify({ token: loginD.token, client_id: loginD.client_id, email: PENDING_EMAIL }));
+      localStorage.setItem('coachpilot_client_session', JSON.stringify({ token: loginD.token, client_id: loginD.client_id, email: PENDING_EMAIL }));
       location.href = 'client-app.html';
     }
   } catch(e) {
