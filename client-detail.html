@@ -31,6 +31,11 @@ select{width:100%;border:1.5px solid var(--line);border-radius:9px;padding:11px 
 .log-date{font-weight:600}
 .log-meta{color:var(--ink3);font-size:12px}
 .empty{color:var(--ink3);font-size:13px;padding:10px 0}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+label{font-size:11px;font-weight:600;letter-spacing:.3px;text-transform:uppercase;color:var(--ink3);display:block;margin-bottom:6px}
+.session-stat{display:flex;justify-content:space-between;align-items:center;background:var(--bg);border-radius:9px;padding:12px 14px}
+.session-stat b{font-family:'Space Grotesk';font-size:20px}
+.session-stat .remaining-hi{color:var(--accent-dk)}
 </style>
 </head>
 <body>
@@ -47,6 +52,35 @@ select{width:100%;border:1.5px solid var(--line);border-radius:9px;padding:11px 
   <div class="card" id="currentProgramCard" style="display:none">
     <div class="section-label">Current Program</div>
     <div class="current-program" id="currentProgramBox"></div>
+  </div>
+
+  <div class="card">
+    <div class="section-label">Sessions &amp; Terms</div>
+    <div id="sessionSummary" style="margin-bottom:12px"></div>
+    <div class="field-row" style="margin-bottom:10px">
+      <div>
+        <label>Total Sessions</label>
+        <input type="number" id="pkgTotal" min="0">
+      </div>
+      <div>
+        <label>Package Start</label>
+        <input type="date" id="pkgStart">
+      </div>
+    </div>
+    <div class="field-row" style="margin-bottom:10px">
+      <div>
+        <label>Package End</label>
+        <input type="date" id="pkgEnd">
+      </div>
+      <div></div>
+    </div>
+    <label>Terms / Agreement Notes</label>
+    <textarea id="pkgTerms" rows="3" style="width:100%;border:1.5px solid var(--line);border-radius:9px;padding:10px 12px;font-family:'Inter';font-size:13px;margin-bottom:10px"></textarea>
+    <div style="display:flex;gap:8px">
+      <button class="btn-primary" onclick="savePackage()">Save Package</button>
+      <button class="btn-primary" style="background:var(--green)" onclick="logSession()">Log a Session</button>
+    </div>
+    <div id="sessionLogList" style="margin-top:14px"></div>
   </div>
 
   <div class="card">
@@ -101,6 +135,27 @@ async function loadClientDetail(){
       document.getElementById('currentProgramBox').innerHTML = `<b>${esc(activeProgram.bundle_name)}</b><br>Assigned ${new Date(activeProgram.assigned_at).toLocaleDateString()}`;
     }
 
+    document.getElementById('sessionSummary').innerHTML = `
+      <div class="session-stat">
+        <span>Sessions</span>
+        <b><span class="remaining-hi">${c.sessions_remaining || 0}</span> / ${c.sessions_total || 0} remaining</b>
+      </div>`;
+    document.getElementById('pkgTotal').value = c.sessions_total || '';
+    document.getElementById('pkgStart').value = c.package_start_date || '';
+    document.getElementById('pkgEnd').value = c.package_end_date || '';
+    document.getElementById('pkgTerms').value = c.terms || '';
+
+    const sessionLogs = d.sessionLogs || [];
+    const sessionLogListEl = document.getElementById('sessionLogList');
+    if (sessionLogs.length) {
+      sessionLogListEl.innerHTML = `<div class="section-label" style="margin-top:4px">Session History</div>` +
+        sessionLogs.map(l => `
+          <div class="log-row">
+            <div class="log-date">${new Date(l.session_date).toLocaleDateString()}</div>
+            ${l.notes ? `<div class="log-meta">${esc(l.notes)}</div>` : ''}
+          </div>`).join('');
+    }
+
     const logs = d.logs || [];
     const logListEl = document.getElementById('logList');
     if (!logs.length) {
@@ -128,6 +183,39 @@ async function assignProgram(){
     });
     const d = await r.json();
     if (!d.ok) { alert(d.error || 'Could not assign program.'); return; }
+    loadClientDetail();
+  } catch(e) {
+    alert('Connection error, try again.');
+  }
+}
+
+async function savePackage(){
+  const sessions_total = document.getElementById('pkgTotal').value;
+  const package_start_date = document.getElementById('pkgStart').value;
+  const package_end_date = document.getElementById('pkgEnd').value;
+  const terms = document.getElementById('pkgTerms').value.trim();
+  try {
+    const r = await fetch(WORKER + '/trainer/client/update-package', {
+      method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ token: SESSION.token, client_id: parseInt(clientId,10), sessions_total: sessions_total || 0, package_start_date: package_start_date || null, package_end_date: package_end_date || null, terms: terms || null })
+    });
+    const d = await r.json();
+    if (!d.ok) { alert(d.error || 'Could not save package.'); return; }
+    loadClientDetail();
+  } catch(e) {
+    alert('Connection error, try again.');
+  }
+}
+
+async function logSession(){
+  if (!confirm('Log a session for today?')) return;
+  try {
+    const r = await fetch(WORKER + '/trainer/client/log-session', {
+      method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ token: SESSION.token, client_id: parseInt(clientId,10), session_date: new Date().toISOString().slice(0,10) })
+    });
+    const d = await r.json();
+    if (!d.ok) { alert(d.error || 'Could not log session.'); return; }
     loadClientDetail();
   } catch(e) {
     alert('Connection error, try again.');

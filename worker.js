@@ -131,7 +131,8 @@ export default {
         if (!client) return bad('Client not found', cors);
         const programs = await env.DB.prepare('SELECT * FROM assigned_programs WHERE client_id=? ORDER BY assigned_at DESC').bind(clientId).all();
         const logs = await env.DB.prepare('SELECT * FROM workout_logs WHERE client_id=? ORDER BY log_date DESC LIMIT 30').bind(clientId).all();
-        return ok({ client, programs: programs.results || [], logs: logs.results || [] }, cors);
+        const sessionLogs = await env.DB.prepare('SELECT * FROM session_logs WHERE client_id=? ORDER BY session_date DESC LIMIT 30').bind(clientId).all();
+        return ok({ client, programs: programs.results || [], logs: logs.results || [], sessionLogs: sessionLogs.results || [] }, cors);
       }
 
       if (url.pathname === '/trainer/assign-program' && request.method === 'POST') {
@@ -150,6 +151,47 @@ export default {
           `INSERT INTO assigned_programs (client_id, trainer_id, bundle_id, bundle_name, notes) VALUES (?,?,?,?,?)`
         ).bind(clientId, claims.id, b.bundle_id, b.bundle_name, b.notes || null).run();
         return ok({ assigned: true }, cors);
+      }
+
+      // ── TRAINER: SESSION PACKAGE + TERMS ─────────────────────
+      // Sets (or resets) a client's session package -- total sessions,
+      // package dates, and the terms/agreement text on file for them.
+      // sessions_remaining is always derived from total - used here,
+      // never edited directly, so it can't drift out of sync.
+      if (url.pathname === '/trainer/client/update-package' && request.method === 'POST') {
+        if (!env.DB) return bad('No DB', cors);
+        const b = await request.json().catch(() => ({}));
+        const claims = await verifyToken(b.token, SECRET);
+        if (!claims || claims.role !== 'trainer') return bad('Unauthorized', cors);
+        const clientId = parseInt(b.client_id, 10);
+        if (!clientId) return bad('client_id required', cors);
+        const client = await env.DB.prepare('SELECT sessions_used FROM clients WHERE id=? AND trainer_id=?').bind(clientId, claims.id).first();
+        if (!client) return bad('Client not found', cors);
+        const sessionsTotal = Math.max(0, parseInt(b.sessions_total, 10) || 0);
+        const sessionsRemaining = Math.max(0, sessionsTotal - (client.sessions_used || 0));
+        await env.DB.prepare(
+          `UPDATE clients SET sessions_total=?, sessions_remaining=?, package_start_date=?, package_end_date=?, terms=?, updated_at=? WHERE id=?`
+        ).bind(sessionsTotal, sessionsRemaining, b.package_start_date || null, b.package_end_date || null, b.terms || null, new Date().toISOString(), clientId).run();
+        return ok({ updated: true }, cors);
+      }
+
+      if (url.pathname === '/trainer/client/log-session' && request.method === 'POST') {
+        if (!env.DB) return bad('No DB', cors);
+        const b = await request.json().catch(() => ({}));
+        const claims = await verifyToken(b.token, SECRET);
+        if (!claims || claims.role !== 'trainer') return bad('Unauthorized', cors);
+        const clientId = parseInt(b.client_id, 10);
+        if (!clientId) return bad('client_id required', cors);
+        const client = await env.DB.prepare('SELECT sessions_used, sessions_remaining FROM clients WHERE id=? AND trainer_id=?').bind(clientId, claims.id).first();
+        if (!client) return bad('Client not found', cors);
+        if ((client.sessions_remaining || 0) <= 0) return bad('No sessions remaining on this client\u2019s package', cors);
+        await env.DB.prepare(
+          `INSERT INTO session_logs (client_id, trainer_id, session_date, notes) VALUES (?,?,?,?)`
+        ).bind(clientId, claims.id, b.session_date || new Date().toISOString().slice(0, 10), b.notes || null).run();
+        await env.DB.prepare(
+          `UPDATE clients SET sessions_used = sessions_used + 1, sessions_remaining = sessions_remaining - 1, updated_at=? WHERE id=?`
+        ).bind(new Date().toISOString(), clientId).run();
+        return ok({ logged: true }, cors);
       }
 
       // ── CLIENT AUTH + APP ─────────────────────────────────────
