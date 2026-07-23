@@ -376,55 +376,116 @@ const DEMO_APP_HTML = `<!DOCTYPE html>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--navy:#1A2A4A;--gold:#C9A84C;--white:#fff;--light:#F1F5F9;--gray:#64748B;--dark:#0F172A;--dark2:#1e293b;--green:#10b981;--red:#ef4444}
+:root{--navy:#1A2A4A;--gold:#C9A84C;--white:#fff;--light:#F1F5F9;--gray:#64748B;--dark:#0F172A;--dark2:#1e293b;--green:#10b981;--red:#ef4444;--blue:#2563eb}
 body{font-family:'Inter',sans-serif;background:var(--light);color:var(--dark);min-height:100vh;display:flex}
-.sidebar{position:fixed;left:0;top:0;bottom:0;width:260px;background:var(--dark);display:flex;flex-direction:column;z-index:100}
-.sidebar-brand{padding:24px 20px;border-bottom:1px solid rgba(255,255,255,.1)}
-.brand-name{font-family:'Oswald',sans-serif;font-size:1.1rem;font-weight:700;color:var(--white);letter-spacing:.05em}
-.brand-sub{font-size:.72rem;color:#94A3B8;margin-top:2px}
-.demo-badge{background:rgba(201,168,76,.2);border:1px solid rgba(201,168,76,.4);color:var(--gold);font-size:.65rem;font-weight:700;letter-spacing:.1em;padding:3px 8px;border-radius:4px;display:inline-block;margin-top:8px}
-.sidebar-nav{flex:1;padding:16px 12px;overflow-y:auto}
-.nav-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;color:#94A3B8;font-size:.88rem;font-weight:500;cursor:pointer;transition:all .15s;margin-bottom:2px;border:none;background:none;width:100%;text-align:left}
+.sidebar{position:fixed;left:0;top:0;bottom:0;width:250px;background:var(--dark);display:flex;flex-direction:column;z-index:100}
+.sidebar-brand{padding:20px 16px;border-bottom:1px solid rgba(255,255,255,.1)}
+.brand-name{font-family:'Oswald',sans-serif;font-size:1.05rem;font-weight:700;color:var(--white);letter-spacing:.05em}
+.brand-sub{font-size:.7rem;color:#94A3B8;margin-top:2px}
+.demo-badge{background:rgba(201,168,76,.2);border:1px solid rgba(201,168,76,.4);color:var(--gold);font-size:.62rem;font-weight:700;letter-spacing:.1em;padding:3px 8px;border-radius:4px;display:inline-block;margin-top:8px}
+.sidebar-nav{flex:1;padding:12px;overflow-y:auto}
+.nav-section{font-size:.62rem;font-weight:700;color:#475569;letter-spacing:.12em;text-transform:uppercase;padding:12px 8px 6px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;color:#94A3B8;font-size:.85rem;font-weight:500;cursor:pointer;transition:all .15s;margin-bottom:2px;border:none;background:none;width:100%;text-align:left}
 .nav-item:hover,.nav-item.active{background:linear-gradient(135deg,#2563eb,#1e40af);color:#fff}
-.main{margin-left:260px;min-height:100vh;display:flex;flex-direction:column}
-.topbar{background:#fff;border-bottom:1px solid #e2e8f0;padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
-.topbar-title{font-size:1.1rem;font-weight:800;color:var(--dark)}
-.page-body{flex:1;padding:32px}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px}
-.stat-card{background:#fff;border-radius:12px;padding:20px;box-shadow:0 1px 8px rgba(0,0,0,.06)}
-.stat-val{font-size:1.8rem;font-weight:900;color:var(--dark);line-height:1}
-.stat-lbl{font-size:.75rem;color:var(--gray);text-transform:uppercase;letter-spacing:.06em;margin-top:4px}
-.card{background:#fff;border-radius:12px;padding:24px;box-shadow:0 1px 8px rgba(0,0,0,.06);margin-bottom:20px}
-.card-title{font-size:1rem;font-weight:800;color:var(--dark);margin-bottom:16px;display:flex;justify-content:space-between;align-items:center}
-.clients-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
-.client-card{background:#fff;border-radius:12px;padding:18px;box-shadow:0 1px 8px rgba(0,0,0,.06);border:2px solid transparent;cursor:pointer;transition:all .2s}
-.client-card:hover{border-color:#2563eb;transform:translateY(-2px)}
-.client-header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
-.avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#2563eb,#1e40af);display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.1rem;font-weight:800}
-.client-name{font-size:.95rem;font-weight:700;color:var(--dark)}
-.client-goal{font-size:.78rem;color:var(--gray);margin-top:2px}
-.pill{font-size:.68rem;padding:3px 8px;border-radius:100px;font-weight:600;display:inline-block}
+.nav-item .badge-new{background:var(--gold);color:var(--dark);font-size:.55rem;font-weight:700;padding:2px 5px;border-radius:4px;margin-left:auto}
+.main{margin-left:250px;min-height:100vh;display:flex;flex-direction:column;width:calc(100% - 250px)}
+.topbar{background:#fff;border-bottom:1px solid #e2e8f0;padding:0 24px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+.topbar-title{font-size:1rem;font-weight:800;color:var(--dark)}
+.page-body{flex:1;padding:24px}
+.demo-banner{background:linear-gradient(135deg,#1A2A4A,#1e3060);border-radius:10px;padding:14px 18px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.demo-banner-text{color:#94A3B8;font-size:.8rem}
+.demo-banner-text strong{color:var(--gold)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.stat-card{background:#fff;border-radius:10px;padding:16px;box-shadow:0 1px 6px rgba(0,0,0,.06)}
+.stat-icon{font-size:1.3rem;margin-bottom:6px}
+.stat-val{font-size:1.6rem;font-weight:900;color:var(--dark);line-height:1}
+.stat-lbl{font-size:.7rem;color:var(--gray);text-transform:uppercase;letter-spacing:.06em;margin-top:3px}
+.card{background:#fff;border-radius:10px;padding:20px;box-shadow:0 1px 6px rgba(0,0,0,.06);margin-bottom:16px}
+.card-title{font-size:.95rem;font-weight:800;color:var(--dark);margin-bottom:14px;display:flex;justify-content:space-between;align-items:center}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.clients-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.client-card{background:#fff;border-radius:10px;padding:16px;box-shadow:0 1px 6px rgba(0,0,0,.06);border:2px solid transparent;cursor:pointer;transition:all .2s}
+.client-card:hover{border-color:var(--blue);transform:translateY(-2px)}
+.avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#2563eb,#1e40af);display:flex;align-items:center;justify-content:center;color:#fff;font-size:1rem;font-weight:800;flex-shrink:0}
+.pill{font-size:.65rem;padding:2px 7px;border-radius:100px;font-weight:600;display:inline-block}
 .pill-green{background:#d1fae5;color:#065f46}
 .pill-blue{background:#dbeafe;color:#1e40af}
 .pill-yellow{background:#fef3c7;color:#92400e}
-.streak{font-size:.78rem;color:var(--gold);font-weight:700}
-.session-item{display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid #f1f5f9}
+.pill-gold{background:rgba(201,168,76,.2);color:#92400e}
+.streak{font-size:.75rem;color:var(--gold);font-weight:700}
+.session-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #f1f5f9}
 .session-item:last-child{border-bottom:none}
-.session-date{text-align:center;min-width:44px}
-.session-day{font-size:.62rem;color:var(--gray);text-transform:uppercase;font-weight:700}
-.session-d{font-size:1.2rem;font-weight:900;color:var(--dark);line-height:1}
-.session-info{flex:1}
-.session-client{font-size:.88rem;font-weight:700;color:var(--dark)}
-.session-meta{font-size:.75rem;color:var(--gray);margin-top:2px}
-.demo-banner{background:linear-gradient(135deg,#1A2A4A,#1e3060);border-radius:12px;padding:16px 20px;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between}
-.demo-banner-text{color:#94A3B8;font-size:.82rem}
-.demo-banner-text strong{color:var(--gold)}
-.back-link{color:#2563eb;font-size:.82rem;text-decoration:none;font-weight:600}
-.back-link:hover{text-decoration:underline}
-@media(max-width:768px){.sidebar{display:none}.main{margin-left:0}.stats{grid-template-columns:1fr 1fr}}
+.s-date{text-align:center;min-width:40px}
+.s-day{font-size:.6rem;color:var(--gray);text-transform:uppercase;font-weight:700}
+.s-d{font-size:1.1rem;font-weight:900;color:var(--dark);line-height:1}
+.s-info{flex:1}
+.s-client{font-size:.85rem;font-weight:700;color:var(--dark)}
+.s-meta{font-size:.73rem;color:var(--gray);margin-top:2px}
+/* NUTRITION */
+.macro-ring{display:flex;gap:20px;align-items:center;margin-bottom:20px}
+.ring-wrap{text-align:center}
+.ring-label{font-size:.7rem;color:var(--gray);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-top:4px}
+.macro-bars{flex:1}
+.macro-row{margin-bottom:10px}
+.macro-name{font-size:.78rem;font-weight:600;color:var(--dark);margin-bottom:3px;display:flex;justify-content:space-between}
+.macro-track{height:8px;background:#f1f5f9;border-radius:100px;overflow:hidden}
+.macro-fill{height:100%;border-radius:100px;transition:width .5s}
+.meal-item{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid #f8fafc}
+.meal-item:last-child{border-bottom:none}
+.meal-name{font-size:.85rem;font-weight:600;color:var(--dark)}
+.meal-type{font-size:.7rem;color:var(--gray);margin-top:2px}
+.meal-macros{text-align:right;font-size:.78rem;color:var(--gray)}
+.meal-macros strong{color:var(--dark)}
+/* SUPPLEMENT SECTION */
+.supp-card{background:linear-gradient(135deg,#0f1f3d,#1a2a4a);border-radius:12px;padding:20px;margin-bottom:16px;border:1px solid rgba(201,168,76,.3)}
+.supp-header{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.supp-logo{width:48px;height:48px;background:rgba(201,168,76,.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;border:1px solid rgba(201,168,76,.3)}
+.supp-title{font-family:'Oswald',sans-serif;font-size:1.1rem;color:var(--white);font-weight:700}
+.supp-sub{font-size:.75rem;color:#94A3B8;margin-top:2px}
+.supp-products{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.supp-product{background:rgba(255,255,255,.05);border-radius:8px;padding:12px;border:1px solid rgba(255,255,255,.08);cursor:pointer;transition:all .2s}
+.supp-product:hover{background:rgba(201,168,76,.1);border-color:rgba(201,168,76,.4)}
+.supp-product-name{font-size:.82rem;font-weight:700;color:var(--white)}
+.supp-product-desc{font-size:.7rem;color:#94A3B8;margin-top:2px;line-height:1.4}
+.supp-product-price{font-size:.85rem;color:var(--gold);font-weight:700;margin-top:6px}
+.supp-cta{background:var(--gold);color:var(--dark);border:none;border-radius:6px;padding:8px 16px;font-weight:700;font-size:.8rem;cursor:pointer;width:100%;margin-top:12px;letter-spacing:.04em}
+.affiliate-box{background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);border-radius:8px;padding:12px 14px;margin-top:12px;display:flex;align-items:center;gap:10px}
+.affiliate-box .aff-icon{font-size:1.2rem}
+.affiliate-box .aff-text{font-size:.78rem;color:#94A3B8;line-height:1.4}
+.affiliate-box .aff-text strong{color:var(--green)}
+/* LEGIONNAIRE HQ */
+.leg-hq{background:linear-gradient(135deg,#0f1f3d,#1a2a4a);border-radius:12px;padding:20px;border:1px solid rgba(201,168,76,.3)}
+.leg-hq-header{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.leg-hq-title{font-family:'Oswald',sans-serif;font-size:1.2rem;color:var(--gold);font-weight:700}
+.leg-hq-sub{font-size:.75rem;color:#94A3B8;margin-top:2px}
+.leg-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
+.leg-stat{background:rgba(255,255,255,.05);border-radius:8px;padding:14px;text-align:center;border:1px solid rgba(255,255,255,.08)}
+.leg-stat-val{font-family:'Oswald',sans-serif;font-size:1.6rem;font-weight:700;color:var(--gold);line-height:1}
+.leg-stat-lbl{font-size:.68rem;color:#94A3B8;text-transform:uppercase;letter-spacing:.06em;margin-top:4px}
+.goal-row{margin-bottom:14px}
+.goal-label{font-size:.78rem;font-weight:600;color:var(--white);margin-bottom:5px;display:flex;justify-content:space-between}
+.goal-label span{color:#94A3B8;font-weight:400}
+.goal-track{height:10px;background:rgba(255,255,255,.08);border-radius:100px;overflow:hidden}
+.goal-fill{height:100%;border-radius:100px}
+.recent-sales{margin-top:16px}
+.sale-item{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.sale-item:last-child{border-bottom:none}
+.sale-client{font-size:.8rem;color:var(--white);font-weight:600}
+.sale-product{font-size:.72rem;color:#94A3B8}
+.sale-amount{font-size:.85rem;color:var(--green);font-weight:700}
+/* WORKOUT */
+.workout-day{background:#f8fafc;border-radius:8px;padding:14px;margin-bottom:10px;border-left:3px solid var(--blue)}
+.workout-day-title{font-size:.85rem;font-weight:800;color:var(--dark);margin-bottom:8px}
+.exercise-row{display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f1f5f9}
+.exercise-row:last-child{border-bottom:none}
+.exercise-name{font-size:.82rem;font-weight:600;color:var(--dark)}
+.exercise-sets{font-size:.75rem;color:var(--gray)}
+.log-btn{background:var(--blue);color:#fff;border:none;border-radius:5px;padding:4px 10px;font-size:.7rem;font-weight:700;cursor:pointer}
+@media(max-width:768px){.sidebar{display:none}.main{margin-left:0;width:100%}.stats{grid-template-columns:1fr 1fr}.grid2{grid-template-columns:1fr}.supp-products{grid-template-columns:1fr}.leg-stats{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
+
 <nav class="sidebar">
   <div class="sidebar-brand">
     <div class="brand-name">BeroFit Pilot</div>
@@ -432,125 +493,307 @@ body{font-family:'Inter',sans-serif;background:var(--light);color:var(--dark);mi
     <div class="demo-badge">LIVE DEMO</div>
   </div>
   <div class="sidebar-nav">
-    <button class="nav-item active" onclick="showPage('dashboard')">📊 Dashboard</button>
-    <button class="nav-item" onclick="showPage('clients')">👥 Clients</button>
-    <button class="nav-item" onclick="showPage('schedule')">📅 Schedule</button>
-    <button class="nav-item" onclick="showPage('programs')">💪 Programs</button>
-    <button class="nav-item" onclick="showPage('nutrition')">🥗 Nutrition</button>
-    <button class="nav-item" onclick="showPage('checkins')">✅ Check-ins</button>
-    <button class="nav-item" onclick="showPage('community')">🐻 Bear Den</button>
-    <button class="nav-item" onclick="showPage('store')">🏪 Store</button>
-    <button class="nav-item" onclick="showPage('brand')">🎨 My Brand</button>
+    <div class="nav-section">Main</div>
+    <button class="nav-item active" onclick="showPage('dashboard',this)">📊 Dashboard</button>
+    <button class="nav-item" onclick="showPage('clients',this)">👥 Clients</button>
+    <button class="nav-item" onclick="showPage('schedule',this)">📅 Schedule</button>
+    <div class="nav-section">Coaching</div>
+    <button class="nav-item" onclick="showPage('programs',this)">💪 Programs</button>
+    <button class="nav-item" onclick="showPage('nutrition',this)">🥗 Nutrition <span class="badge-new">AI</span></button>
+    <button class="nav-item" onclick="showPage('checkins',this)">✅ Check-ins</button>
+    <div class="nav-section">Growth</div>
+    <button class="nav-item" onclick="showPage('store',this)">🏪 Store & Affiliate <span class="badge-new">💰</span></button>
+    <button class="nav-item" onclick="showPage('legionnaire',this)">⭐ Legionnaire HQ <span class="badge-new">NEW</span></button>
+    <button class="nav-item" onclick="showPage('community',this)">🐻 Bear Den</button>
+    <button class="nav-item" onclick="showPage('brand',this)">🎨 My Brand</button>
   </div>
-  <div style="padding:16px 12px;border-top:1px solid rgba(255,255,255,.1)">
-    <div style="font-size:.72rem;color:#475569;margin-bottom:4px">Demo Account</div>
-    <div style="font-size:.82rem;color:#94A3B8">demo@berofitpro.com</div>
-    <a href="/" style="display:block;margin-top:12px;font-size:.78rem;color:var(--gold);text-decoration:none">← Back to berofitpro.com</a>
+  <div style="padding:14px;border-top:1px solid rgba(255,255,255,.1)">
+    <div style="font-size:.7rem;color:#475569">Demo Account</div>
+    <div style="font-size:.8rem;color:#94A3B8;margin-top:2px">demo@berofitpro.com</div>
+    <a href="/" style="display:block;margin-top:10px;font-size:.75rem;color:var(--gold);text-decoration:none">← berofitpro.com</a>
   </div>
 </nav>
 
 <div class="main">
   <div class="topbar">
     <div class="topbar-title" id="page-title">Dashboard</div>
-    <div style="display:flex;align-items:center;gap:12px">
-      <span style="font-size:.8rem;color:var(--gray)">Demo Coach</span>
-      <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#2563eb,#1e40af);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:.8rem">D</div>
+    <div style="display:flex;align-items:center;gap:10px">
+      <span style="font-size:.78rem;color:var(--gray)">Demo Coach</span>
+      <div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#2563eb,#1e40af);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:.78rem">D</div>
     </div>
   </div>
 
   <div class="page-body">
     <div class="demo-banner">
-      <div class="demo-banner-text">You are viewing a <strong>live demo</strong> of BeroFit Pilot. All clients shown are fictional. <a href="mailto:ted@berofitpro.com" style="color:var(--gold)">Contact Ted</a> to start your free 14-day trial.</div>
-      <a href="/" class="back-link" style="color:var(--gold);white-space:nowrap;margin-left:16px">berofitpro.com →</a>
+      <div class="demo-banner-text">Viewing <strong>BeroFit Pilot Live Demo</strong> — all clients fictional — <a href="mailto:ted@berofitpro.com" style="color:var(--gold)">contact Ted</a> to start your free 14-day trial</div>
+      <a href="/" style="color:var(--gold);font-size:.78rem;font-weight:700;text-decoration:none;white-space:nowrap">berofitpro.com →</a>
     </div>
 
     <!-- DASHBOARD -->
     <div id="page-dashboard">
       <div class="stats">
-        <div class="stat-card"><div style="font-size:1.5rem;margin-bottom:8px">👥</div><div class="stat-val">4</div><div class="stat-lbl">Active Clients</div></div>
-        <div class="stat-card"><div style="font-size:1.5rem;margin-bottom:8px">📅</div><div class="stat-val">3</div><div class="stat-lbl">Sessions This Week</div></div>
-        <div class="stat-card"><div style="font-size:1.5rem;margin-bottom:8px">✅</div><div class="stat-val">4</div><div class="stat-lbl">Check-ins This Month</div></div>
-        <div class="stat-card"><div style="font-size:1.5rem;margin-bottom:8px">🔥</div><div class="stat-val">11</div><div class="stat-lbl">Avg Check-in Streak</div></div>
+        <div class="stat-card"><div class="stat-icon">👥</div><div class="stat-val">4</div><div class="stat-lbl">Active Clients</div></div>
+        <div class="stat-card"><div class="stat-icon">📅</div><div class="stat-val">3</div><div class="stat-lbl">Sessions This Week</div></div>
+        <div class="stat-card"><div class="stat-icon">💰</div><div class="stat-val">$186</div><div class="stat-lbl">Affiliate This Month</div></div>
+        <div class="stat-card"><div class="stat-icon">🔥</div><div class="stat-val">11</div><div class="stat-lbl">Avg Check-in Streak</div></div>
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+      <div class="grid2">
         <div class="card">
           <div class="card-title">Upcoming Sessions</div>
-          <div class="session-item"><div class="session-date"><div class="session-day">Thu</div><div class="session-d">24</div></div><div class="session-info"><div class="session-client">Alex Johnson</div><div class="session-meta">9:00 AM · 60 min · Training</div></div><span class="pill pill-green">Confirmed</span></div>
-          <div class="session-item"><div class="session-date"><div class="session-day">Wed</div><div class="session-d">23</div></div><div class="session-info"><div class="session-client">Sarah Martinez</div><div class="session-meta">10:30 AM · 45 min · Training</div></div><span class="pill pill-green">Confirmed</span></div>
-          <div class="session-item"><div class="session-date"><div class="session-day">Fri</div><div class="session-d">25</div></div><div class="session-info"><div class="session-client">Jennifer Kim</div><div class="session-meta">11:00 AM · 60 min · Check-in</div></div><span class="pill pill-green">Confirmed</span></div>
+          <div class="session-item"><div class="s-date"><div class="s-day">Wed</div><div class="s-d">23</div></div><div class="s-info"><div class="s-client">Sarah Martinez</div><div class="s-meta">10:30 AM · 45 min · Post-surgical protocol</div></div></div>
+          <div class="session-item"><div class="s-date"><div class="s-day">Thu</div><div class="s-d">24</div></div><div class="s-info"><div class="s-client">Alex Johnson</div><div class="s-meta">9:00 AM · 60 min · GLP-1 muscle preservation</div></div></div>
+          <div class="session-item"><div class="s-date"><div class="s-day">Fri</div><div class="s-d">25</div></div><div class="s-info"><div class="s-client">Jennifer Kim</div><div class="s-meta">11:00 AM · 60 min · PCOS monthly check-in</div></div></div>
         </div>
         <div class="card">
-          <div class="card-title">Recent Check-ins</div>
-          <div class="session-item"><div class="avatar" style="width:36px;height:36px;font-size:.85rem">AJ</div><div class="session-info"><div class="session-client">Alex Johnson</div><div class="session-meta">Energy 7/10 · Nutrition 85% · Weight 218.5 lbs</div></div></div>
-          <div class="session-item"><div class="avatar" style="width:36px;height:36px;font-size:.85rem">SM</div><div class="session-info"><div class="session-client">Sarah Martinez</div><div class="session-meta">Energy 8/10 · Nutrition 90% · Weight 162 lbs</div></div></div>
-          <div class="session-item"><div class="avatar" style="width:36px;height:36px;font-size:.85rem">MW</div><div class="session-info"><div class="session-client">Marcus Williams</div><div class="session-meta">Energy 9/10 · Nutrition 94% · Weight 197 lbs</div></div></div>
+          <div class="card-title">Affiliate Activity <span style="font-size:.72rem;color:var(--green);font-weight:600">This Month</span></div>
+          <div class="sale-item"><div><div class="sale-client">Alex Johnson</div><div class="sale-product">1st Phorm Level-1 Protein · 2 units</div></div><div class="sale-amount">+$14.20</div></div>
+          <div class="sale-item"><div><div class="sale-client">Marcus Williams</div><div class="sale-product">1st Phorm Creatine + Pre-Workout Stack</div></div><div class="sale-amount">+$22.50</div></div>
+          <div class="sale-item"><div><div class="sale-client">Jennifer Kim</div><div class="sale-product">1st Phorm Collagen + Greens</div></div><div class="sale-amount">+$18.60</div></div>
+          <div style="padding-top:10px;border-top:1px solid #f1f5f9;display:flex;justify-content:space-between;align-items:center">
+            <span style="font-size:.78rem;color:var(--gray)">3 orders this month</span>
+            <span style="font-size:.9rem;font-weight:800;color:var(--green)">$55.30 earned</span>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- CLIENTS -->
     <div id="page-clients" style="display:none">
-      <div style="margin-bottom:20px"><h2 style="font-size:1.2rem;font-weight:800">Your Clients</h2><p style="font-size:.85rem;color:var(--gray);margin-top:4px">Click any client to view their full profile</p></div>
+      <div style="margin-bottom:16px"><h2 style="font-size:1.1rem;font-weight:800">Your Clients</h2><p style="font-size:.82rem;color:var(--gray);margin-top:3px">Click any client to view their full profile, program, nutrition, and progress</p></div>
       <div class="clients-grid">
-        <div class="client-card" onclick="alert('Full client profile — programs, nutrition, progress photos, check-ins, chat — all in the live platform.')">
-          <div class="client-header"><div class="avatar">AJ</div><div><div class="client-name">Alex Johnson</div><div class="client-goal">Lose 30 lbs on Ozempic, build lean muscle</div></div></div>
-          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px"><span class="pill pill-blue">GLP-1</span><span class="pill pill-yellow">Type 2 Diabetes</span><span class="pill pill-green">Active</span></div>
-          <div class="streak">🔥 8-week streak · 218.5 lbs</div>
+        <div class="client-card" onclick="showPage('nutrition',document.querySelector(\'[onclick*=nutrition]\'))">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px"><div class="avatar">AJ</div><div><div style="font-size:.9rem;font-weight:700">Alex Johnson</div><div style="font-size:.75rem;color:var(--gray)">Lose 30 lbs on Ozempic, build lean muscle</div></div></div>
+          <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px"><span class="pill pill-blue">GLP-1</span><span class="pill pill-yellow">Type 2 Diabetes</span><span class="pill pill-green">Active</span></div>
+          <div class="streak">🔥 8-week check-in streak · 218.5 lbs</div>
         </div>
-        <div class="client-card" onclick="alert('Full client profile — programs, nutrition, progress photos, check-ins, chat — all in the live platform.')">
-          <div class="client-header"><div class="avatar">SM</div><div><div class="client-name">Sarah Martinez</div><div class="client-goal">Knee replacement recovery, return to hiking</div></div></div>
-          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px"><span class="pill pill-yellow">Post-Surgical</span><span class="pill pill-green">Active</span></div>
-          <div class="streak">🔥 12-week streak · 162 lbs</div>
+        <div class="client-card">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px"><div class="avatar">SM</div><div><div style="font-size:.9rem;font-weight:700">Sarah Martinez</div><div style="font-size:.75rem;color:var(--gray)">Knee replacement recovery, return to hiking</div></div></div>
+          <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px"><span class="pill pill-yellow">Post-Surgical</span><span class="pill pill-green">Active</span></div>
+          <div class="streak">🔥 12-week check-in streak · 162 lbs</div>
         </div>
-        <div class="client-card" onclick="alert('Full client profile — programs, nutrition, progress photos, check-ins, chat — all in the live platform.')">
-          <div class="client-header"><div class="avatar">MW</div><div><div class="client-name">Marcus Williams</div><div class="client-goal">Add 15 lbs lean muscle by year end</div></div></div>
-          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px"><span class="pill pill-green">Active</span></div>
-          <div class="streak">🔥 18-week streak · 197 lbs</div>
+        <div class="client-card" onclick="showPage('programs',document.querySelector(\'[onclick*=programs]\'))">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px"><div class="avatar">MW</div><div><div style="font-size:.9rem;font-weight:700">Marcus Williams</div><div style="font-size:.75rem;color:var(--gray)">Add 15 lbs lean muscle by year end</div></div></div>
+          <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px"><span class="pill pill-green">Active</span></div>
+          <div class="streak">🔥 18-week check-in streak · 197 lbs · PR: Bench 265</div>
         </div>
-        <div class="client-card" onclick="alert('Full client profile — programs, nutrition, progress photos, check-ins, chat — all in the live platform.')">
-          <div class="client-header"><div class="avatar">JK</div><div><div class="client-name">Jennifer Kim</div><div class="client-goal">Manage PCOS, lose 20 lbs</div></div></div>
-          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px"><span class="pill pill-yellow">PCOS Protocol</span><span class="pill pill-green">Active</span></div>
-          <div class="streak">🔥 6-week streak · 174.5 lbs</div>
+        <div class="client-card">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px"><div class="avatar">JK</div><div><div style="font-size:.9rem;font-weight:700">Jennifer Kim</div><div style="font-size:.75rem;color:var(--gray)">Manage PCOS, lose 20 lbs</div></div></div>
+          <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px"><span class="pill pill-yellow">PCOS Protocol</span><span class="pill pill-green">Active</span></div>
+          <div class="streak">🔥 6-week check-in streak · 174.5 lbs</div>
         </div>
       </div>
     </div>
 
-    <!-- OTHER PAGES -->
-    <div id="page-schedule" style="display:none">
-      <div class="card"><div class="card-title">Upcoming Sessions</div>
-        <div class="session-item"><div class="session-date"><div class="session-day">Wed</div><div class="session-d">23</div></div><div class="session-info"><div class="session-client">Sarah Martinez</div><div class="session-meta">10:30 AM · 45 min · Training · Post-surgical protocol</div></div></div>
-        <div class="session-item"><div class="session-date"><div class="session-day">Thu</div><div class="session-d">24</div></div><div class="session-info"><div class="session-client">Alex Johnson</div><div class="session-meta">9:00 AM · 60 min · Training · GLP-1 muscle preservation</div></div></div>
-        <div class="session-item"><div class="session-date"><div class="session-day">Fri</div><div class="session-d">25</div></div><div class="session-info"><div class="session-client">Jennifer Kim</div><div class="session-meta">11:00 AM · 60 min · Monthly check-in · PCOS protocol review</div></div></div>
+    <!-- PROGRAMS -->
+    <div id="page-programs" style="display:none">
+      <div class="card">
+        <div class="card-title">Marcus Williams — Ironclad Iron Protocol Phase 2 <span class="pill pill-green">Active</span></div>
+        <div class="workout-day">
+          <div class="workout-day-title">DAY 1 — CHEST & TRICEPS</div>
+          <div class="exercise-row"><div><div class="exercise-name">Flat Barbell Bench Press</div><div class="exercise-sets">4 sets × 6-8 reps · Rest 2 min</div></div><button class="log-btn">Log</button></div>
+          <div class="exercise-row"><div><div class="exercise-name">Incline Dumbbell Press</div><div class="exercise-sets">4 sets × 10-12 reps · Rest 90s</div></div><button class="log-btn">Log</button></div>
+          <div class="exercise-row"><div><div class="exercise-name">Cable Fly</div><div class="exercise-sets">4 sets × 12-15 reps · Rest 45s</div></div><button class="log-btn">Log</button></div>
+          <div class="exercise-row"><div><div class="exercise-name">Tricep Pushdown</div><div class="exercise-sets">3 sets × 12 reps · Rest 60s</div></div><button class="log-btn">Log</button></div>
+          <div class="exercise-row"><div><div class="exercise-name">Overhead Tricep Extension</div><div class="exercise-sets">3 sets × 15 reps · Rest 45s</div></div><button class="log-btn">Log</button></div>
+        </div>
+        <div class="workout-day" style="border-left-color:#059669">
+          <div class="workout-day-title">DAY 2 — BACK & BICEPS</div>
+          <div class="exercise-row"><div><div class="exercise-name">Deadlift</div><div class="exercise-sets">4 sets × 5-6 reps · Rest 3 min</div></div><button class="log-btn">Log</button></div>
+          <div class="exercise-row"><div><div class="exercise-name">Wide-Grip Pull-Up</div><div class="exercise-sets">4 sets × 8-10 reps · Rest 90s</div></div><button class="log-btn">Log</button></div>
+          <div class="exercise-row"><div><div class="exercise-name">Seated Cable Row</div><div class="exercise-sets">3 sets × 12 reps · Rest 60s</div></div><button class="log-btn">Log</button></div>
+          <div class="exercise-row"><div><div class="exercise-name">Barbell Curl</div><div class="exercise-sets">3 sets × 10 reps · Rest 60s</div></div><button class="log-btn">Log</button></div>
+        </div>
+        <div style="background:#f8fafc;border-radius:8px;padding:12px;margin-top:4px;font-size:.8rem;color:var(--gray)">
+          💡 <strong style="color:var(--dark)">AI Program Builder</strong> — generate a full 12-week program from goals, conditions, equipment, and schedule in seconds. Available for all clients.
+        </div>
       </div>
     </div>
-    <div id="page-programs" style="display:none"><div class="card" style="text-align:center;padding:60px"><div style="font-size:3rem;margin-bottom:16px">💪</div><h3 style="font-size:1.2rem;font-weight:800;margin-bottom:8px">AI Program Builder</h3><p style="color:var(--gray)">Input client goals, conditions, equipment, and schedule. Full 12-week program generated in seconds. Available in the full platform.</p></div></div>
-    <div id="page-nutrition" style="display:none"><div class="card" style="text-align:center;padding:60px"><div style="font-size:3rem;margin-bottom:16px">🥗</div><h3 style="font-size:1.2rem;font-weight:800;margin-bottom:8px">Nutrition and Meal Planning</h3><p style="color:var(--gray)">Full macro tracking, 93+ recipes, GLP-1 meal structures, grocery list generator, and Ask the Chef AI. Available in the full platform.</p></div></div>
+
+    <!-- NUTRITION -->
+    <div id="page-nutrition" style="display:none">
+      <div class="card">
+        <div class="card-title">Alex Johnson — Daily Nutrition <span class="pill pill-blue">GLP-1 Protocol Active</span></div>
+        <div style="background:#eff6ff;border-radius:8px;padding:10px 12px;margin-bottom:14px;font-size:.78rem;color:#1e40af;border-left:3px solid #2563eb">
+          🔵 GLP-1 meal structure applied — higher protein density per calorie, smaller volume, appetite suppression-aware portions
+        </div>
+        <div class="macro-ring">
+          <div style="text-align:center">
+            <svg width="80" height="80" viewBox="0 0 80 80">
+              <circle cx="40" cy="40" r="32" fill="none" stroke="#f1f5f9" stroke-width="10"/>
+              <circle cx="40" cy="40" r="32" fill="none" stroke="#2563eb" stroke-width="10" stroke-dasharray="134 67" stroke-dashoffset="50" transform="rotate(-90 40 40)"/>
+              <text x="40" y="44" text-anchor="middle" font-size="13" font-weight="800" fill="#0f172a">1,840</text>
+            </svg>
+            <div style="font-size:.68rem;color:var(--gray);font-weight:700;margin-top:2px">of 2,100 kcal</div>
+          </div>
+          <div class="macro-bars" style="flex:1">
+            <div class="macro-row"><div class="macro-name">Protein <span>186g / 210g</span></div><div class="macro-track"><div class="macro-fill" style="width:88%;background:#2563eb"></div></div></div>
+            <div class="macro-row"><div class="macro-name">Carbs <span>142g / 180g</span></div><div class="macro-track"><div class="macro-fill" style="width:79%;background:#f59e0b"></div></div></div>
+            <div class="macro-row"><div class="macro-name">Fat <span>52g / 70g</span></div><div class="macro-track"><div class="macro-fill" style="width:74%;background:#10b981"></div></div></div>
+          </div>
+        </div>
+        <div class="card-title" style="font-size:.85rem">Today's Meals</div>
+        <div class="meal-item"><div><div class="meal-name">Egg White & Spinach Scramble + Sprouted Toast</div><div class="meal-type">BREAKFAST · 7:30 AM</div></div><div class="meal-macros"><strong>320 kcal</strong><br>30g protein</div></div>
+        <div class="meal-item"><div><div class="meal-name">Grilled Chicken Salad with Mixed Greens & Pomegranate</div><div class="meal-type">LUNCH · 12:00 PM</div></div><div class="meal-macros"><strong>460 kcal</strong><br>40g protein</div></div>
+        <div class="meal-item"><div><div class="meal-name">Level-1 Protein Shake — Vanilla</div><div class="meal-type">POST-WORKOUT · 3:00 PM · 1st Phorm</div></div><div class="meal-macros"><strong>160 kcal</strong><br>25g protein</div></div>
+        <div class="meal-item"><div><div class="meal-name">Lean Ground Turkey & Black Bean Power Bowl</div><div class="meal-type">DINNER · 6:30 PM</div></div><div class="meal-macros"><strong>520 kcal</strong><br>38g protein</div></div>
+      </div>
+
+      <div class="supp-card">
+        <div class="supp-header">
+          <div class="supp-logo">🦁</div>
+          <div>
+            <div class="supp-title">1st Phorm Recommendations</div>
+            <div class="supp-sub">Coach-selected supplements for Alex's GLP-1 protocol — purchased through your affiliate link</div>
+          </div>
+        </div>
+        <div class="supp-products">
+          <div class="supp-product">
+            <div class="supp-product-name">Level-1 Protein</div>
+            <div class="supp-product-desc">Slow-digesting blend — ideal for GLP-1 appetite suppression and muscle preservation</div>
+            <div class="supp-product-price">$54.99</div>
+          </div>
+          <div class="supp-product">
+            <div class="supp-product-name">Optigreens 50</div>
+            <div class="supp-product-desc">Whole food greens — micronutrient density for reduced appetite on GLP-1</div>
+            <div class="supp-product-price">$49.99</div>
+          </div>
+          <div class="supp-product">
+            <div class="supp-product-name">Full Mega Fish Oil</div>
+            <div class="supp-product-desc">Omega-3 support for inflammation and joint health during weight loss</div>
+            <div class="supp-product-price">$34.99</div>
+          </div>
+          <div class="supp-product">
+            <div class="supp-product-name">Magnesium</div>
+            <div class="supp-product-desc">Sleep and recovery support — commonly depleted in GLP-1 users</div>
+            <div class="supp-product-price">$24.99</div>
+          </div>
+        </div>
+        <button class="supp-cta" onclick="alert('Client clicks → purchases through your personal Legionnaire affiliate link → commission tracked in Legionnaire HQ dashboard')">VIEW COACH\'S PICKS ON 1ST PHORM →</button>
+        <div class="affiliate-box">
+          <div class="aff-icon">💰</div>
+          <div class="aff-text">Every purchase Alex makes goes through <strong>your personal Legionnaire link</strong>. Commission tracked in real time in your Legionnaire HQ dashboard. You earn — BeroFit takes nothing.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCHEDULE -->
+    <div id="page-schedule" style="display:none">
+      <div class="card"><div class="card-title">This Week</div>
+        <div class="session-item"><div class="s-date"><div class="s-day">Wed</div><div class="s-d">23</div></div><div class="s-info"><div class="s-client">Sarah Martinez</div><div class="s-meta">10:30 AM · 45 min · Post-surgical knee protocol</div></div><span class="pill pill-green">Confirmed</span></div>
+        <div class="session-item"><div class="s-date"><div class="s-day">Thu</div><div class="s-d">24</div></div><div class="s-info"><div class="s-client">Alex Johnson</div><div class="s-meta">9:00 AM · 60 min · GLP-1 muscle preservation training</div></div><span class="pill pill-green">Confirmed</span></div>
+        <div class="session-item"><div class="s-date"><div class="s-day">Fri</div><div class="s-d">25</div></div><div class="s-info"><div class="s-client">Jennifer Kim</div><div class="s-meta">11:00 AM · 60 min · PCOS monthly check-in and review</div></div><span class="pill pill-green">Confirmed</span></div>
+        <div class="session-item"><div class="s-date"><div class="s-day">Sat</div><div class="s-d">26</div></div><div class="s-info"><div class="s-client">Marcus Williams</div><div class="s-meta">7:00 AM · 75 min · Iron Protocol Day 3 — Legs & Shoulders</div></div><span class="pill pill-green">Confirmed</span></div>
+      </div>
+    </div>
+
+    <!-- CHECK-INS -->
     <div id="page-checkins" style="display:none">
       <div class="card"><div class="card-title">Recent Check-ins</div>
-        <div class="session-item"><div class="avatar" style="width:40px;height:40px;font-size:.9rem">AJ</div><div class="session-info"><div class="session-client">Alex Johnson</div><div class="session-meta">Weight 218.5 · Energy 7/10 · Sleep 7/10 · Nutrition 85%</div><div style="font-size:.78rem;color:var(--gray);margin-top:4px">Appetite way down this week. Logged all meals. Energy improving.</div></div></div>
-        <div class="session-item"><div class="avatar" style="width:40px;height:40px;font-size:.9rem">SM</div><div class="session-info"><div class="session-client">Sarah Martinez</div><div class="session-meta">Weight 162 · Energy 8/10 · Sleep 8/10 · Nutrition 90%</div><div style="font-size:.78rem;color:var(--gray);margin-top:4px">Knee feeling strong. Completed all sessions. No pain post-workout.</div></div></div>
-        <div class="session-item"><div class="avatar" style="width:40px;height:40px;font-size:.9rem">MW</div><div class="session-info"><div class="session-client">Marcus Williams</div><div class="session-meta">Weight 197 · Energy 9/10 · Sleep 7/10 · Nutrition 94%</div><div style="font-size:.78rem;color:var(--gray);margin-top:4px">Hit new bench PR — 265 lbs. Nutrition on point all week.</div></div></div>
-        <div class="session-item"><div class="avatar" style="width:40px;height:40px;font-size:.9rem">JK</div><div class="session-info"><div class="session-client">Jennifer Kim</div><div class="session-meta">Weight 174.5 · Energy 7/10 · Sleep 8/10 · Nutrition 88%</div><div style="font-size:.78rem;color:var(--gray);margin-top:4px">Cycle more regular this month. Energy better. Keeping carbs low-glycemic.</div></div></div>
+        <div class="session-item"><div class="avatar" style="width:38px;height:38px;font-size:.85rem">AJ</div><div class="s-info"><div class="s-client">Alex Johnson</div><div class="s-meta">Weight 218.5 · Energy 7/10 · Sleep 7/10 · Nutrition 85%</div><div style="font-size:.75rem;color:var(--gray);margin-top:3px">Appetite way down this week. Logged all meals. Energy improving.</div></div></div>
+        <div class="session-item"><div class="avatar" style="width:38px;height:38px;font-size:.85rem">SM</div><div class="s-info"><div class="s-client">Sarah Martinez</div><div class="s-meta">Weight 162 · Energy 8/10 · Sleep 8/10 · Nutrition 90%</div><div style="font-size:.75rem;color:var(--gray);margin-top:3px">Knee feeling strong. No pain post-workout. PT signed off on next phase.</div></div></div>
+        <div class="session-item"><div class="avatar" style="width:38px;height:38px;font-size:.85rem">MW</div><div class="s-info"><div class="s-client">Marcus Williams</div><div class="s-meta">Weight 197 · Energy 9/10 · Sleep 7/10 · Nutrition 94%</div><div style="font-size:.75rem;color:var(--gray);margin-top:3px">New bench PR — 265 lbs. Nutrition locked in all week.</div></div></div>
+        <div class="session-item"><div class="avatar" style="width:38px;height:38px;font-size:.85rem">JK</div><div class="s-info"><div class="s-client">Jennifer Kim</div><div class="s-meta">Weight 174.5 · Energy 7/10 · Sleep 8/10 · Nutrition 88%</div><div style="font-size:.75rem;color:var(--gray);margin-top:3px">Cycle more regular. Energy better. Low-glycemic nutrition holding.</div></div></div>
       </div>
     </div>
-    <div id="page-community" style="display:none"><div class="card" style="text-align:center;padding:60px"><div style="font-size:3rem;margin-bottom:16px">🐻</div><h3 style="font-size:1.2rem;font-weight:800;margin-bottom:8px">Bear Den Community</h3><p style="color:var(--gray)">Club feed, BEAR Points gamification, challenges, accountability pairing, and the BeroFit network. Available in the full platform.</p></div></div>
-    <div id="page-store" style="display:none"><div class="card" style="text-align:center;padding:60px"><div style="font-size:3rem;margin-bottom:16px">🏪</div><h3 style="font-size:1.2rem;font-weight:800;margin-bottom:8px">Built-In Store</h3><p style="color:var(--gray)">Branded merch store with print-on-demand fulfillment and supplement affiliate integration. Zero inventory. Available in the full platform.</p></div></div>
-    <div id="page-brand" style="display:none"><div class="card" style="text-align:center;padding:60px"><div style="font-size:3rem;margin-bottom:16px">🎨</div><h3 style="font-size:1.2rem;font-weight:800;margin-bottom:8px">White-Label Your Brand</h3><p style="color:var(--gray)">Your name, your logo, your colors on everything your clients see. BeroFit stays invisible. Set up in minutes. Available in the full platform.</p></div></div>
+
+    <!-- STORE & AFFILIATE -->
+    <div id="page-store" style="display:none">
+      <div class="supp-card">
+        <div class="supp-header">
+          <div class="supp-logo">🦁</div>
+          <div>
+            <div class="supp-title">1st Phorm Affiliate Storefront</div>
+            <div class="supp-sub">Your personal Legionnaire link is the purchase path for every product. Every sale tracked. Every commission yours.</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px">
+          <div style="background:rgba(255,255,255,.06);border-radius:8px;padding:12px;text-align:center;border:1px solid rgba(255,255,255,.1)">
+            <div style="font-size:1.4rem;font-weight:900;color:var(--gold)">$186</div>
+            <div style="font-size:.68rem;color:#94A3B8;margin-top:3px">Earned This Month</div>
+          </div>
+          <div style="background:rgba(255,255,255,.06);border-radius:8px;padding:12px;text-align:center;border:1px solid rgba(255,255,255,.1)">
+            <div style="font-size:1.4rem;font-weight:900;color:var(--gold)">12</div>
+            <div style="font-size:.68rem;color:#94A3B8;margin-top:3px">Orders This Month</div>
+          </div>
+          <div style="background:rgba(255,255,255,.06);border-radius:8px;padding:12px;text-align:center;border:1px solid rgba(255,255,255,.1)">
+            <div style="font-size:1.4rem;font-weight:900;color:var(--gold)">$62</div>
+            <div style="font-size:.68rem;color:#94A3B8;margin-top:3px">Avg Order Value</div>
+          </div>
+        </div>
+        <div class="recent-sales">
+          <div style="font-size:.75rem;font-weight:700;color:#94A3B8;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">Recent Client Purchases</div>
+          <div class="sale-item"><div><div class="sale-client">Alex Johnson</div><div class="sale-product">Level-1 Protein Vanilla × 2</div></div><div class="sale-amount">+$14.20</div></div>
+          <div class="sale-item"><div><div class="sale-client">Marcus Williams</div><div class="sale-product">Creatine + 1-DB Overdrive Stack</div></div><div class="sale-amount">+$22.50</div></div>
+          <div class="sale-item"><div><div class="sale-client">Jennifer Kim</div><div class="sale-product">Collagen + Optigreens</div></div><div class="sale-amount">+$18.60</div></div>
+          <div class="sale-item"><div><div class="sale-client">Marcus Williams</div><div class="sale-product">Full Mega + Magnesium</div></div><div class="sale-amount">+$9.80</div></div>
+          <div class="sale-item"><div><div class="sale-client">Sarah Martinez</div><div class="sale-product">Joint Support Stack</div></div><div class="sale-amount">+$16.40</div></div>
+        </div>
+        <div class="affiliate-box" style="margin-top:14px">
+          <div class="aff-icon">💡</div>
+          <div class="aff-text">Your affiliate link lives inside the nutrition module for every client. When BeroFit recommends a supplement, your link is the purchase path. <strong>You earn the commission. BeroFit takes nothing.</strong> Platform subscription pays for itself from affiliate revenue alone.</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Branded Merch Store</div>
+        <div style="font-size:.85rem;color:var(--gray);margin-bottom:12px">Your club branded apparel and accessories — print-on-demand fulfilled directly to your clients. Zero inventory. You set the margin, you keep it all.</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
+          <div style="background:#f8fafc;border-radius:8px;padding:12px;text-align:center"><div style="font-size:1.5rem">👕</div><div style="font-size:.78rem;font-weight:700;margin-top:4px">Performance Tee</div><div style="font-size:.72rem;color:var(--green);margin-top:2px">$28 margin</div></div>
+          <div style="background:#f8fafc;border-radius:8px;padding:12px;text-align:center"><div style="font-size:1.5rem">🧢</div><div style="font-size:.78rem;font-weight:700;margin-top:4px">Snapback Cap</div><div style="font-size:.72rem;color:var(--green);margin-top:2px">$18 margin</div></div>
+          <div style="background:#f8fafc;border-radius:8px;padding:12px;text-align:center"><div style="font-size:1.5rem">🎽</div><div style="font-size:.78rem;font-weight:700;margin-top:4px">Tank Top</div><div style="font-size:.72rem;color:var(--green);margin-top:2px">$22 margin</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LEGIONNAIRE HQ -->
+    <div id="page-legionnaire" style="display:none">
+      <div class="leg-hq">
+        <div class="leg-hq-header">
+          <div style="font-size:2rem">⭐</div>
+          <div>
+            <div class="leg-hq-title">Legionnaire HQ</div>
+            <div class="leg-hq-sub">Your 1st Phorm goals, sales targets, and posting accountability — alongside your coaching business in one dashboard</div>
+          </div>
+        </div>
+        <div class="leg-stats">
+          <div class="leg-stat"><div class="leg-stat-val">$186</div><div class="leg-stat-lbl">Affiliate Earned</div></div>
+          <div class="leg-stat"><div class="leg-stat-val">12</div><div class="leg-stat-lbl">Orders Driven</div></div>
+          <div class="leg-stat"><div class="leg-stat-val">18</div><div class="leg-stat-lbl">Posts This Month</div></div>
+        </div>
+        <div class="goal-row"><div class="goal-label">Monthly Sales Goal <span>$186 of $300 target</span></div><div class="goal-track"><div class="goal-fill" style="width:62%;background:var(--gold)"></div></div></div>
+        <div class="goal-row"><div class="goal-label">Posting Goal <span>18 of 20 posts</span></div><div class="goal-track"><div class="goal-fill" style="width:90%;background:var(--green)"></div></div></div>
+        <div class="goal-row"><div class="goal-label">Quarterly Revenue Goal <span>$412 of $900 target</span></div><div class="goal-track"><div class="goal-fill" style="width:46%;background:#2563eb)"></div></div></div>
+        <div style="margin-top:16px;padding:12px;background:rgba(255,255,255,.05);border-radius:8px;border:1px solid rgba(255,255,255,.08)">
+          <div style="font-size:.75rem;font-weight:700;color:#94A3B8;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Team Leader View</div>
+          <div style="font-size:.82rem;color:#94A3B8;line-height:1.6">Your team leader sees your goal progress, posting compliance, and affiliate revenue in their team dashboard in real time. No more manual reporting through group texts.</div>
+        </div>
+        <div class="affiliate-box" style="margin-top:12px">
+          <div class="aff-icon">🔗</div>
+          <div class="aff-text">Your Legionnaire affiliate link is your link — not Ted's, not BeroFit's. <strong>Every sale your clients make goes through you.</strong> Tracked here. Reported to your team leader. Yours to keep.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMMUNITY -->
+    <div id="page-community" style="display:none"><div class="card" style="text-align:center;padding:48px"><div style="font-size:2.5rem;margin-bottom:12px">🐻</div><h3 style="font-size:1.1rem;font-weight:800;margin-bottom:8px">Bear Den Community</h3><p style="color:var(--gray);font-size:.85rem">Club social feed, BEAR Points gamification, monthly challenges, accountability pairing, and the BeroFit network. Available in the full platform.</p></div></div>
+    <div id="page-brand" style="display:none"><div class="card" style="text-align:center;padding:48px"><div style="font-size:2.5rem;margin-bottom:12px">🎨</div><h3 style="font-size:1.1rem;font-weight:800;margin-bottom:8px">White-Label Your Brand</h3><p style="color:var(--gray);font-size:.85rem">Your name, your logo, your colors on everything clients see. BeroFit stays invisible. Your clients never see BeroFit — they see you.</p></div></div>
   </div>
 </div>
 
 <script>
-function showPage(name) {
-  document.querySelectorAll('[id^="page-"]').forEach(p => p.style.display = 'none');
-  document.getElementById('page-' + name).style.display = 'block';
+function showPage(name, btn) {
+  document.querySelectorAll('[id^="page-"]').forEach(p => p.style.display='none');
+  document.getElementById('page-'+name).style.display='block';
   document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
-  event.currentTarget.classList.add('active');
-  const titles = {dashboard:'Dashboard',clients:'Clients',schedule:'Schedule',programs:'Programs',nutrition:'Nutrition',checkins:'Check-ins',community:'Bear Den',store:'Store',brand:'My Brand'};
-  document.getElementById('page-title').textContent = titles[name] || name;
+  if(btn) btn.classList.add('active');
+  const titles={dashboard:'Dashboard',clients:'Clients',schedule:'Schedule',programs:'Programs',nutrition:'Nutrition & Meal Planning',checkins:'Check-ins',store:'Store & Affiliate',legionnaire:'Legionnaire HQ',community:'Bear Den',brand:'My Brand'};
+  document.getElementById('page-title').textContent = titles[name]||name;
+  window.scrollTo(0,0);
 }
 </script>
 </body>
 </html>`;
+
+
 
 export default {
   async fetch(request, env) {
