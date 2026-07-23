@@ -149,15 +149,15 @@ section{padding:90px 24px}
 .section-sub{font-size:1rem;color:var(--gray);max-width:540px;line-height:1.7;margin-bottom:56px}
 .tiers{background:#0a1020}
 .tiers-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:24px}
-.tier-card{background:var(--navy);border:1px solid rgba(201,168,76,.15);border-radius:16px;padding:28px 24px;transition:all .3s;position:relative;overflow:hidden}
-.tier-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gold);opacity:0;transition:opacity .3s}
+.tier-card{background:var(--navy);border:1px solid rgba(201,168,76,.15);border-radius:16px;padding:28px 24px;transition:all .3s;position:relative;overflow:visible}
+.tier-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gold);border-radius:16px 16px 0 0;opacity:0;transition:opacity .3s}
 .tier-card:hover{transform:translateY(-4px);border-color:rgba(201,168,76,.4)}
 .tier-card:hover::before,.tier-card.featured::before{opacity:1}
 .tier-card.featured{border-color:var(--gold);background:linear-gradient(145deg,var(--navy),#1e3060)}
 .tier-badge{font-size:.65rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--dark);background:var(--gold);padding:3px 10px;border-radius:100px;display:inline-block;margin-bottom:16px}
 .tier-name{font-family:'Oswald',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:6px}
 .tier-desc{font-size:.82rem;color:var(--gray);margin-bottom:20px;line-height:1.5}
-.tier-price{font-family:'Oswald',sans-serif;font-size:2.2rem;font-weight:700;color:var(--gold);line-height:1;margin-bottom:4px}
+.tier-price{font-family:'Oswald',sans-serif;font-size:1.8rem;font-weight:700;color:var(--gold);line-height:1.2;margin-bottom:4px;word-break:keep-all;white-space:nowrap}
 .tier-price-label{font-size:.72rem;color:var(--gray);margin-bottom:20px}
 .tier-features{list-style:none}
 .tier-features li{font-size:.82rem;color:#94A3B8;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.05);display:flex;align-items:flex-start;gap:8px}
